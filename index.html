@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="./src/css/estilo.css">
+  <meta charset="UTF-8">
+  <title>Juego 2048</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="juego">
+      <div class="tablero">
+        <div class="fila">
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+        </div>
+        <div class="fila">
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+        </div>
+        <div class="fila">
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+        </div>
+        <div class="fila">
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+          <div class="celda vacia"></div>
+        </div>
+      </div>
+      <div class="fichas">
+          <transition-group name="list" tag="div">
+              <div v-for="ficha in fichasValidas" id="elem" :class="calcularClase(ficha)" :key="ficha.u">{{ ficha.v }}</div>
+          </transition-group>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./src/js/logica.js"></script>
+  <script src="./src/js/renderer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "juego-2048",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [],
+  "author": "Bryan",
+  "license": "GPL3",
+  "devDependencies": {
+    "electron": "^7.0.0"
+  }
+}
