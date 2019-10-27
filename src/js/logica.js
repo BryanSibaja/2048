@@ -1,5 +1,5 @@
-function nuevoTablero(tamaño, tablero) {
-    var tablero = {
+function nuevoTablero(tamaño) {
+    let tablero = {
         tamaño: tamaño,
         fichas: [],
         puntos: 0,
@@ -17,67 +17,70 @@ function nuevoTablero(tamaño, tablero) {
             });
         }
     }
-    generarNumero(tablero);
-    generarNumero(tablero);
+    
+    for(let i = 0; i < 2; i++)
+        generarNumero(tablero);
+
     return tablero;
 }
 
 function generarNumero(tablero) {
-    var casillasLibres = [];
-    var generado = false;
+    let libres = [];
+    let generado = false;
+    let {tamaño, fichas} = tablero;
 
     //busca las casillas disponibles
-    for (i = 0; i < tablero.tamaño; i++) {
-        for (j = 0; j < tablero.tamaño; j++) {
-            if (tablero.fichas[i][j].v === 0) {
-                casillasLibres.push({ fila: i, columna: j });
+    for (i = 0; i < tamaño; i++) {
+        for (j = 0; j < tamaño; j++) {
+            if (fichas[i][j].v === 0) {
+                libres.push([i, j]);
             }
         }
     }
 
     // si hay casillas diponibles genera un numero
-    if (casillasLibres.length > 0) {
-        var casilla = casillasLibres[Math.floor(Math.random() * casillasLibres.length)];
-        tablero.fichas[casilla.fila][casilla.columna].v = Math.random() < 0.9 ? 2 : 4;
-        tablero.fichas[casilla.fila][casilla.columna].u = ++ tablero.ultima;
+    if (libres.length > 0) {
+        let [f, c] = libres[Math.floor(Math.random() * libres.length)];
+        fichas[f][c].v = Math.random() < 0.9 ? 2 : 4;
+        fichas[f][c].u = ++ tablero.ultima;
         generado = true;
     }
     return generado;
 }
 
 function mover(tablero, direccion) {
-    var obtenerVector = [
+    let obtenerVector = [
         [0, -1], //izquierda
         [-1, 0], //arriba
         [0, 1], //derecha
         [1, 0] //abajo    
     ];
 
-    function moverPos(pos, ficha) {
-        var validoFila = pos[0] < tablero.tamaño && pos[0] >= 0;
-        var validoColumna = pos[1] < tablero.tamaño && pos[1] >= 0;
-        var continuar = false;
+    function moverPos(f1, c1, f2, c2) {
+        const validoFila = f1 < tablero.tamaño && f1 >= 0;
+        const validoColumna = c1 < tablero.tamaño && c1 >= 0;
+        let continuar = false;
         if (validoFila && validoColumna) {
-            var desde = tablero.fichas[ficha[0]][ficha[1]].v;
-            var hasta = tablero.fichas[pos[0]][pos[1]].v;
+            let desde = tablero.fichas[f2][c2].v;
+            let hasta = tablero.fichas[f1][c1].v;
             if (hasta === 0) {
-                tablero.fichas[pos[0]][pos[1]].v = desde;
+                tablero.fichas[f1][c1].v = desde;
                 continuar = true;
             }
             if (desde === hasta) {
-                tablero.fichas[pos[0]][pos[1]].v = desde * 2;
+                tablero.fichas[f1][c1].v = desde * 2;
             }
             if (hasta === 0 || desde === hasta){
-                tablero.fichas[pos[0]][pos[1]].u = tablero.fichas[ficha[0]][ficha[1]].u;
-                tablero.fichas[ficha[0]][ficha[1]].u = 0;
-                tablero.fichas[ficha[0]][ficha[1]].v = 0;
+                tablero.fichas[f1][c1].u = tablero.fichas[f2][c2].u;
+                tablero.fichas[f2][c2].u = 0;
+                tablero.fichas[f2][c2].v = 0;
             }
         }
         return continuar;
     }
 
     function obtenerSentido(dir) {
-        var sentido = [...Array(tablero.tamaño).keys()];
+        let sentido = [...Array(tablero.tamaño).keys()];
         if (dir === 1) {
             sentido.reverse();
         }
@@ -85,20 +88,20 @@ function mover(tablero, direccion) {
     }
 
     function moverFicha(ficha, dir) {
-        var continuar = true;
+        let continuar = true;
         while (continuar) {
-            var posicion = ficha.map((elem, i) => elem + dir[i]);
-            continuar = moverPos(posicion, ficha);
+            let posicion = ficha.map((elem, i) => elem + dir[i]);
+            continuar = moverPos(...posicion, ...ficha);
             ficha = posicion;
         }
     }
 
-    var vector = obtenerVector[direccion];
-    var filas = obtenerSentido(vector[0]);
-    var columnas = obtenerSentido(vector[1]);
+    const vector = obtenerVector[direccion];
+    const filas = obtenerSentido(vector[0]);
+    const columnas = obtenerSentido(vector[1]);
 
-    for (var i = 0; i < tablero.tamaño; i++) {
-        for (var j = 0; j < tablero.tamaño; j++) {
+    for (let i = 0; i < tablero.tamaño; i++) {
+        for (let j = 0; j < tablero.tamaño; j++) {
             if (tablero.fichas[filas[i]][columnas[j]].v > 0){
                 moverFicha([filas[i], columnas[j]], vector);
             }
@@ -107,9 +110,9 @@ function mover(tablero, direccion) {
     generarNumero(tablero);
 }
 
-function comprovarEstado(tablero){
-    for (var i = 0; i < tablero.tamaño; i++){
-        for (var j= 0; j < tablero.tamaño; j++){
+function comproletEstado(tablero){
+    for (let i = 0; i < tablero.tamaño; i++){
+        for (let j= 0; j < tablero.tamaño; j++){
 
         }
     }

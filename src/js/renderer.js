@@ -18,7 +18,7 @@ var app = new Vue({
     },
 
     calcularClase : function(ficha){
-      return 'celda llena f' + ficha.f + ' c' + ficha.c + ' v' + ficha.v;
+      return `celda llena f${ficha.f} c${ficha.c} v${ficha.v}`
     }
   },
 

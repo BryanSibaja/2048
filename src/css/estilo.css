@@ -157,13 +157,8 @@ body {
     left: 375px;
 }
 
-.list-item {
-    display: inline-block;
-    margin-right: 10px;
-}
-
 .list-enter-active, .list-leave-active {
-    transition: all 100ms;
+    transition: all 200ms;
 }
 
 .list-enter, .list-leave-to{
