@@ -4,25 +4,31 @@
 <head>
   <link rel="stylesheet" type="text/css" href="./src/css/estilo.css">
   <meta charset="UTF-8">
-  <title>Juego 2048</title>
+  <title>2048</title>
 </head>
 
 <body>
   <div id="app">
     <div class="juego">
+      <h1 class="titulo">
+        2048 <span class="puntos"> Score: {{puntosAnim}} </span>
+      </h1>
       <div class="tablero">
         <div class="fila" v-for="_ in tablero.tamaño">
           <div class="celda vacia" v-for="_ in tablero.tamaño"></div>
         </div>
-      </div>
-      <div class="fichas">
-        <transition-group name="list" tag="div">
-          <div v-for="ficha in fichasValidas" :class="calcularClase(ficha)" :key="ficha.u">{{ ficha.v }}</div>
-        </transition-group>
+        <div class="fichas">
+            <transition-group name="list" tag="div">
+              <div v-for="ficha in fichas" :class="getClass(ficha)" :key="ficha.u">
+                {{ ficha.v }}
+              </div>
+            </transition-group>
+          </div>
       </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
   <script src="./src/js/logica.js"></script>
   <script src="./src/js/renderer.js"></script>
 </body>

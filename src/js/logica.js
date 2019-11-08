@@ -1,6 +1,12 @@
+/**
+ * Genera un tablero segun el tamaño especificado
+ * 
+ * @param {number} tamaño - longitud del tablero
+ * @returns {object} tablero
+ */
 function nuevoTablero(tamaño) {
     let tablero = {
-        tamaño: tamaño,
+        tamaño: tamaño ,
         fichas: [],
         puntos: 0,
         estado: "continuar",
@@ -49,6 +55,7 @@ function generarNumero(tablero) {
 }
 
 function mover(tablero, direccion) {
+    let {tamaño, fichas} = tablero;
     let obtenerVector = [
         [0, -1], //izquierda
         [-1, 0], //arriba
@@ -57,30 +64,31 @@ function mover(tablero, direccion) {
     ];
 
     function moverPos(f1, c1, f2, c2) {
-        const validoFila = f1 < tablero.tamaño && f1 >= 0;
-        const validoColumna = c1 < tablero.tamaño && c1 >= 0;
+        const validoFila = f1 < tamaño && f1 >= 0;
+        const validoColumna = c1 < tamaño && c1 >= 0;
         let continuar = false;
         if (validoFila && validoColumna) {
-            let desde = tablero.fichas[f2][c2].v;
-            let hasta = tablero.fichas[f1][c1].v;
+            let desde = fichas[f2][c2].v;
+            let hasta = fichas[f1][c1].v;
             if (hasta === 0) {
-                tablero.fichas[f1][c1].v = desde;
+                fichas[f1][c1].v = desde;
                 continuar = true;
             }
             if (desde === hasta) {
-                tablero.fichas[f1][c1].v = desde * 2;
+                fichas[f1][c1].v = desde * 2;
+                tablero.puntos += desde * 2
             }
             if (hasta === 0 || desde === hasta){
-                tablero.fichas[f1][c1].u = tablero.fichas[f2][c2].u;
-                tablero.fichas[f2][c2].u = 0;
-                tablero.fichas[f2][c2].v = 0;
+                fichas[f1][c1].u = fichas[f2][c2].u;
+                fichas[f2][c2].u = 0;
+                fichas[f2][c2].v = 0;
             }
         }
         return continuar;
     }
 
     function obtenerSentido(dir) {
-        let sentido = [...Array(tablero.tamaño).keys()];
+        let sentido = [...Array(tamaño).keys()];
         if (dir === 1) {
             sentido.reverse();
         }
@@ -100,9 +108,9 @@ function mover(tablero, direccion) {
     const filas = obtenerSentido(vector[0]);
     const columnas = obtenerSentido(vector[1]);
 
-    for (let i = 0; i < tablero.tamaño; i++) {
-        for (let j = 0; j < tablero.tamaño; j++) {
-            if (tablero.fichas[filas[i]][columnas[j]].v > 0){
+    for (let i = 0; i < tamaño; i++) {
+        for (let j = 0; j < tamaño; j++) {
+            if (fichas[filas[i]][columnas[j]].v > 0){
                 moverFicha([filas[i], columnas[j]], vector);
             }
         }
@@ -110,10 +118,12 @@ function mover(tablero, direccion) {
     generarNumero(tablero);
 }
 
-function comproletEstado(tablero){
-    for (let i = 0; i < tablero.tamaño; i++){
-        for (let j= 0; j < tablero.tamaño; j++){
-
+function comprovarEstado(tablero){
+    for (let i = 0; i < tamaño; i++){
+        for (let j= 0; j < tamaño; j++){
+            tablero.estado = "Perder"
         }
     }
 }
+
+nuevoTablero

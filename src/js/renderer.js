@@ -1,7 +1,8 @@
 var app = new Vue({
   el: '#app',
   data: {
-    tablero: nuevoTablero(4)
+    tablero: nuevoTablero(4),
+    puntos: 0
   },
 
   mounted() {
@@ -12,19 +13,34 @@ var app = new Vue({
     handleKeyDown(event) {
       if (event.keyCode >= 37 && event.keyCode <= 40) {
         event.preventDefault();
-        var direction = event.keyCode - 37;
-        mover(this.tablero, direction);
+        var direccion = event.keyCode - 37;
+        mover(this.tablero, direccion);
+      }else if(event.key === 'r'){
+        this.reiniciar();
       }
     },
 
-    calcularClase : function(ficha){
+    getClass : function(ficha){
       return `celda llena f${ficha.f} c${ficha.c} v${ficha.v}`
+    },
+
+    reiniciar: function(){
+      this.tablero = nuevoTablero(4);
     }
   },
 
   computed: {
-    fichasValidas: function(){
-        return this.tablero.fichas.flat().filter(e => e.v > 0);
+    fichas: function(){
+      return this.tablero.fichas.flat().filter(e => e.v > 0);
+    },
+    puntosAnim: function(){
+      return this.puntos.toFixed(0)
+    }
+  },
+
+  watch: {
+    'tablero.puntos': function(valorNuevo){
+      TweenLite.to(this.$data, 0.5, { puntos: valorNuevo});
     }
   }
 })

@@ -8,6 +8,32 @@
 body {
     background-color: rgb(230, 226, 208);
 }
+.titulo{
+    color: gray;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 10px;
+}
+.puntos{
+    display: block;
+    float: right;
+}
+
+.reinicio {
+    color: #fff !important;
+    background: #ed3330;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    margin: 5px;
+    float: right;
+    border: none;
+    transition: all 0.4s ease 0s;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+.reinicio:hover {
+    background: #434343;
+    transition: all 0.4s ease 0s;
+}
 
 .fila {
     height: 25%;
@@ -16,16 +42,15 @@ body {
 }
 
 .juego{
-    position: relative;
     width: 500px;
-    height: 500px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .tablero {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    width: 500px;
+    height: 500px;
     background-color: gray;
     border-radius: 7px;
     border: 2px solid gray;
@@ -56,7 +81,6 @@ body {
 }
 
 .v2{
-    
     background-color: #eee4da;
 }
 
@@ -115,13 +139,11 @@ body {
 }
 
 .fichas {
-    width: 100%;
-    height: 100%;
+    width: 500px;
+    height: 500px;
     position: absolute;
     top: 0px;
     left: 0px;
-    border-radius: 7px;
-    border: 2px solid gray;
     z-index: 2;
 }
 
